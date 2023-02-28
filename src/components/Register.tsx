@@ -25,6 +25,8 @@ export default function Register() {
           navigate("/login");
         } else if (res.status === 204) {
           alert("sorry, this username is already taken");
+        } else {
+          alert(res.data);
         }
       })
       .catch((err) => console.log(err.message));
