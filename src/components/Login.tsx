@@ -1,14 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { setIsLogedin } from "../redux/userReducer";
 import axios from "axios";
 import coinIcon from "../assets/coin.png";
 
 export default function Login() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { isLogedin } = useSelector((state) => state.user);
   const [loginUsername, setLoginUsername] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
@@ -20,7 +16,11 @@ export default function Login() {
     })
       .then((res) => {
         console.log("get user from login : ", res.status);
-        dispatch(setIsLogedin(res.status));
+        if (res.status === 200) {
+          navigate("/home");
+        } else {
+          navigate("/login");
+        }
       })
       .catch((err) => console.log(err.message));
   };
@@ -49,13 +49,6 @@ export default function Login() {
     getUser();
   }, []);
 
-  useEffect(() => {
-    if (isLogedin) {
-      navigate("/home");
-    } else {
-      navigate("/login");
-    }
-  }, [isLogedin]);
   return (
     <>
       <section className="grid h-screen place-items-center bg-gradient-to-tr from-red-200 to-blue-300 px-4">

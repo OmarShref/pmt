@@ -1,13 +1,9 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { setIsLogedin } from "../redux/userReducer";
 import axios from "axios";
 
 export default function Records() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { isLogedin } = useSelector((state) => state.user);
 
   const getUser = async function () {
     await axios({
@@ -17,7 +13,11 @@ export default function Records() {
     })
       .then((res) => {
         console.log("get user from records : ", res.status);
-        dispatch(setIsLogedin(res.status));
+        if (res.status === 200) {
+          navigate("/home/records");
+        } else {
+          navigate("/login");
+        }
       })
       .catch((err) => console.log(err.message));
   };
@@ -36,14 +36,6 @@ export default function Records() {
   useEffect(() => {
     getUser();
   }, []);
-
-  useEffect(() => {
-    if (isLogedin) {
-      navigate("/home/records");
-    } else {
-      navigate("/login");
-    }
-  }, [isLogedin]);
 
   return (
     <>
