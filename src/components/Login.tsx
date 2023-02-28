@@ -19,7 +19,7 @@ export default function Login() {
       url: "http://localhost:7000/user",
     })
       .then((res) => {
-        console.log("get user : ", res.status);
+        console.log("get user from login : ", res.status);
         dispatch(setIsLogedin(res.status));
       })
       .catch((err) => console.log(err.message));
@@ -35,7 +35,12 @@ export default function Login() {
       withCredentials: true,
       url: "http://localhost:7000/login",
     })
-      .then((res) => console.log("login : ", res.status))
+      .then((res) => {
+        console.log("login : ", res.status);
+        if (res.status === 204) {
+          alert("please, enter valid email & password");
+        }
+      })
       .catch((err) => console.log(err.message));
     getUser();
   };
@@ -46,7 +51,7 @@ export default function Login() {
 
   useEffect(() => {
     if (isLogedin) {
-      navigate("/records");
+      navigate("/home");
     } else {
       navigate("/login");
     }

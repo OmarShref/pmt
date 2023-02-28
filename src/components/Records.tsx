@@ -16,7 +16,7 @@ export default function Records() {
       url: "http://localhost:7000/user",
     })
       .then((res) => {
-        console.log("get user : ", res.status);
+        console.log("get user from records : ", res.status);
         dispatch(setIsLogedin(res.status));
       })
       .catch((err) => console.log(err.message));
@@ -39,7 +39,7 @@ export default function Records() {
 
   useEffect(() => {
     if (isLogedin) {
-      navigate("/records");
+      navigate("/home/records");
     } else {
       navigate("/login");
     }

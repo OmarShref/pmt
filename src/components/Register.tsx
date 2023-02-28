@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import coinIcon from "../assets/coin.png";
 
 export default function Register() {
+  const navigate = useNavigate();
   const [registerUsername, setRegisterUsername] = useState("");
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
@@ -18,7 +19,14 @@ export default function Register() {
       withCredentials: true,
       url: "http://localhost:7000/register",
     })
-      .then((res) => console.log("register : ", res.status))
+      .then((res) => {
+        console.log("register : ", res.status);
+        if (res.status === 201) {
+          navigate("/login");
+        } else if (res.status === 204) {
+          alert("sorry, this username is already taken");
+        }
+      })
       .catch((err) => console.log(err.message));
   };
 
