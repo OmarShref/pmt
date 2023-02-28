@@ -5,6 +5,7 @@ import Register from "./components/Register";
 import ForgetPassword from "./components/ForgetPassword";
 import Home from "./components/Home";
 import Records from "./components/Records";
+import Checklists from "./components/Checklists";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="home" element={<Home />}>
           <Route index element={<Records />}></Route>
           <Route path="records" element={<Records />}></Route>
+          <Route path="checklists" element={<Checklists />}></Route>
         </Route>
       </Routes>
     </>
