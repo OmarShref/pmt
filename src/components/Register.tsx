@@ -22,6 +22,7 @@ export default function Register() {
       .then((res) => {
         console.log("register : ", res.status);
         if (res.status === 201) {
+          alert("You successfully created new account.");
           navigate("/login");
         } else if (res.status === 204) {
           alert("sorry, this username is already taken");

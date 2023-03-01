@@ -1,11 +1,16 @@
 import { Outlet } from "react-router-dom";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "../redux/userReducer";
 import axios from "axios";
 import Nav from "./Nav";
+import coinIcon from "../assets/coin.png";
 
 export default function Home() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
 
   const getUser = async function () {
     await axios({
@@ -17,6 +22,7 @@ export default function Home() {
         console.log("get user from home : ", res.status);
         if (res.status === 200) {
           navigate("/home");
+          dispatch(setUser(res.data));
         } else {
           navigate("/login");
         }
@@ -41,13 +47,22 @@ export default function Home() {
 
   return (
     <>
-      <section className="h-screen bg-gradient-to-b from-red-400 to-emerald-400 p-4">
-        <div className="h-full rounded-xl bg-white p-4 shadow-xl">
-          <button onClick={logout} className="block rounded-md bg-red-400 p-2">
-            LOG OUT
-          </button>
-          <Nav />
+      <section className="h-screen bg-gradient-to-b from-red-200 to-emerald-200 p-4">
+        <div className="mx-auto flex h-full max-w-2xl flex-col justify-between rounded-xl bg-white p-4 shadow-xl">
+          <div className="flex items-center justify-between">
+            <button
+              onClick={logout}
+              className="block rounded-md bg-red-300 p-2"
+            >
+              LOG OUT
+            </button>
+            <img src={coinIcon} alt="coin icon" className="h-9 w-9" />
+            <p className="grid h-10 w-10 place-items-center rounded-full bg-gradient-to-tr from-red-200 to-emerald-200 text-lg uppercase text-slate-700">
+              {user.username[0]}
+            </p>
+          </div>
           <Outlet></Outlet>
+          <Nav />
         </div>
       </section>
     </>

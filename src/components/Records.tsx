@@ -1,7 +1,7 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useSelector } from "react-redux";
 
 export default function Records() {
-  return <>Records</>;
+  const { user } = useSelector((state) => state.user);
+
+  return <section className="flex-auto">{user.email}</section>;
 }
