@@ -50,7 +50,7 @@ export default function Records() {
           </div>
         ))
         .reverse()}
-      <div className="sticky bottom-0 flex flex-col gap-2 bg-white p-4">
+      <div className="sticky bottom-0 flex flex-col gap-2 bg-white py-4">
         <div className="flex flex-row justify-between gap-2">
           <button className="rounded-lg bg-slate-500 p-1 text-xs">
             expenses
@@ -58,12 +58,12 @@ export default function Records() {
           <input
             type="number"
             placeholder="money amount"
-            className="min-w-0 rounded-lg border border-slate-300 p-1 text-xs focus-visible:outline-blue-500"
+            className="min-w-0  rounded-lg border border-slate-300 p-1 text-xs focus-visible:outline-blue-500"
           />
           <input
             type="date"
             placeholder="date"
-            className="rounded-lg border border-slate-300 p-1 text-xs focus-visible:outline-blue-500"
+            className="w-[105px] rounded-lg border border-slate-300 p-1 text-[8px] focus-visible:outline-blue-500"
           />
         </div>
         <textarea
