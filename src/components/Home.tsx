@@ -49,12 +49,12 @@ export default function Home() {
     <>
       <section className="h-screen bg-gradient-to-b from-red-200 to-emerald-200 p-4">
         <div className="mx-auto flex h-full max-w-2xl flex-col justify-between rounded-xl bg-white p-4 shadow-xl">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between pb-2">
             <button
               onClick={logout}
-              className="block rounded-md bg-red-300 p-2"
+              className="block h-10 w-10 rounded-full bg-red-300"
             >
-              LOG OUT
+              <i className="fa-solid fa-power-off text-slate-50"></i>
             </button>
             <img src={coinIcon} alt="coin icon" className="h-9 w-9" />
             <p className="grid h-10 w-10 place-items-center rounded-full bg-gradient-to-tr from-red-200 to-emerald-200 text-lg uppercase text-slate-700">

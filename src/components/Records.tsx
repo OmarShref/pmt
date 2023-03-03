@@ -1,10 +1,19 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setrecords } from "../redux/recordsReducer";
 
 export default function Records() {
   const dispatch = useDispatch();
+  const today = new Date();
+  const [date, setDate] = useState(
+    `${today.getFullYear()}-${
+      today.getMonth() < 10 ? 0 : ""
+    }${today.getMonth()}-${today.getDay() < 10 ? 0 : ""}${today.getDay()}`
+  );
+  const [money, setMoney] = useState(0);
+  const [type, setType] = useState("diaries");
+  const [description, setDescription] = useState("");
   const { records } = useSelector((state) => state.records);
 
   const getRecords = () => {
@@ -18,6 +27,30 @@ export default function Records() {
           dispatch(setrecords(res.data.records));
         } else {
           alert("sorry error happened please refesh the page");
+        }
+      })
+      .catch((err) => console.log(err.message));
+  };
+
+  const addRecord = () => {
+    axios({
+      method: "put",
+      data: {
+        date: date,
+        money: money,
+        type: type,
+        description: description,
+      },
+      withCredentials: true,
+      url: "http://localhost:7000/records/putone",
+    })
+      .then((res) => {
+        if (res.status === 201) {
+          getRecords();
+        } else if (res.status === 200) {
+          alert(res.data);
+        } else {
+          alert("make sure you entered valid information.");
         }
       })
       .catch((err) => console.log(err.message));
@@ -52,25 +85,40 @@ export default function Records() {
         .reverse()}
       <div className="sticky bottom-0 flex flex-col gap-2 bg-white py-4">
         <div className="flex flex-row justify-between gap-2">
-          <button className="rounded-lg bg-slate-500 p-1 text-xs">
-            expenses
-          </button>
+          <select className=" appearance-none rounded-lg bg-red-300 p-1 text-xs focus-visible:outline-none">
+            <option value="expenses">expenses</option>
+            <option value="income">income</option>
+            <option value="diaries">diaries</option>
+          </select>
           <input
             type="number"
             placeholder="money amount"
+            onChange={(e) => {
+              setMoney(+e.target.value);
+            }}
             className="min-w-0  rounded-lg border border-slate-300 p-1 text-xs focus-visible:outline-blue-500"
           />
           <input
+            id="input-date"
             type="date"
+            onChange={(e) => {
+              setDate(e.target.value);
+            }}
             placeholder="date"
             className="w-[105px] rounded-lg border border-slate-300 p-1 text-[8px] focus-visible:outline-blue-500"
           />
         </div>
         <textarea
-          className="w-full rounded-lg border border-slate-300 p-2 focus-visible:outline-blue-500"
           placeholder="your description"
+          onChange={(e) => {
+            setDescription(e.target.value);
+          }}
+          className="w-full rounded-lg border border-slate-300 p-2 focus-visible:outline-blue-500"
         ></textarea>
-        <button className="w-full rounded-lg bg-gradient-to-r from-red-200 to-sky-200 py-2">
+        <button
+          onClick={addRecord}
+          className="w-full rounded-lg bg-gradient-to-r from-red-200 to-sky-200 py-2"
+        >
           Add
         </button>
       </div>
