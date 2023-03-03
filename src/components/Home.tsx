@@ -52,7 +52,7 @@ export default function Home() {
           <div className="flex items-center justify-between pb-2">
             <button
               onClick={logout}
-              className="block h-10 w-10 rounded-full bg-red-300"
+              className="block h-10 w-10 rounded-full bg-slate-700 hover:bg-red-600"
             >
               <i className="fa-solid fa-power-off text-slate-50"></i>
             </button>

@@ -1,3 +1,4 @@
+import "./Records.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -12,8 +13,8 @@ export default function Records() {
     }${today.getMonth()}-${today.getDay() < 10 ? 0 : ""}${today.getDay()}`
   );
   const [money, setMoney] = useState(0);
-  const [type, setType] = useState("diaries");
-  const [description, setDescription] = useState("");
+  const [type, setType] = useState("expenses");
+  const [description, setDescription] = useState(" ");
   const { records } = useSelector((state) => state.records);
 
   const getRecords = () => {
@@ -56,14 +57,34 @@ export default function Records() {
       .catch((err) => console.log(err.message));
   };
 
+  const deleteRecord = async () => {
+    console.log("222222222222222222");
+    await axios({
+      method: "put",
+      data: {
+        index: 0,
+      },
+      withCredentials: true,
+      url: "http://localhost:7000/records/deleteone",
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          getRecords();
+        } else {
+          alert("Error hapened please try again.");
+        }
+      })
+      .catch((err) => console.log(err.message));
+  };
+
   useEffect(() => {
     getRecords();
   }, []);
 
   return (
-    <section className="flex-auto overflow-y-scroll">
+    <section className="records-list flex-auto overflow-y-scroll">
       {records
-        .map((record) => (
+        .map((record, index) => (
           <div
             className={` ${
               record.type === "income"
@@ -73,8 +94,12 @@ export default function Records() {
                 : record.type === "diaries"
                 ? "border-l-sky-300"
                 : "border-l-black"
-            } my-2 flex flex-col justify-between rounded-lg border border-l-8 border-slate-300 p-4 text-slate-700 shadow-lg`}
+            } relative my-2 flex flex-col justify-between rounded-lg border border-l-8 border-slate-300 p-4 pr-7 text-slate-700 shadow-lg`}
           >
+            <i
+              onClick={deleteRecord}
+              className="fa-solid fa-trash absolute top-2 right-2 cursor-pointer text-xs hover:text-red-500"
+            ></i>
             <div className="flex flex-row justify-between">
               <p>{record.money}</p>
               <p>{record.date}</p>
@@ -83,9 +108,10 @@ export default function Records() {
           </div>
         ))
         .reverse()}
+
       <div className="sticky bottom-0 flex flex-col gap-2 bg-white py-4">
         <div className="flex flex-row justify-between gap-2">
-          <select className=" appearance-none rounded-lg bg-red-300 p-1 text-xs focus-visible:outline-none">
+          <select className=" appearance-none rounded-lg bg-red-300 p-1 text-center text-xs focus-visible:outline-none">
             <option value="expenses">expenses</option>
             <option value="income">income</option>
             <option value="diaries">diaries</option>
