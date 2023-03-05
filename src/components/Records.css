@@ -1,7 +1,8 @@
-.records-list::-webkit-scrollbar {
+// hide verticle scroll bar
+#records-list::-webkit-scrollbar {
   display: none;
 }
-.records-list {
+#records-list {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }

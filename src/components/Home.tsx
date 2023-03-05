@@ -1,3 +1,4 @@
+import "./Home.css";
 import { Outlet } from "react-router-dom";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +11,7 @@ import coinIcon from "../assets/coin.png";
 export default function Home() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state: any) => state.user);
 
   const getUser = async function () {
     await axios({
@@ -47,12 +48,12 @@ export default function Home() {
 
   return (
     <>
-      <section className="h-screen bg-gradient-to-b from-red-200 to-emerald-200 p-4">
-        <div className="mx-auto flex h-full max-w-2xl flex-col justify-between rounded-xl bg-white p-4 shadow-xl">
+      <section id="home" className="p-4">
+        <div className="mx-auto flex h-full max-w-2xl flex-col justify-between rounded-xl bg-white/20 p-4 shadow-xl backdrop-blur">
           <div className="flex items-center justify-between pb-2">
             <button
               onClick={logout}
-              className="block h-10 w-10 rounded-full bg-slate-700 hover:bg-red-600"
+              className="block h-10 w-10 rounded-full transition hover:bg-red-600 active:scale-95"
             >
               <i className="fa-solid fa-power-off text-slate-50"></i>
             </button>

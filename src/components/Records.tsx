@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { setrecords } from "../redux/recordsReducer";
 
 export default function Records() {
+  const [isDelFinished, setIsDelFinished] = useState(true);
+
   const dispatch = useDispatch();
   const today = new Date();
   const [date, setDate] = useState(
@@ -15,7 +17,7 @@ export default function Records() {
   const [money, setMoney] = useState(0);
   const [type, setType] = useState("expenses");
   const [description, setDescription] = useState(" ");
-  const { records } = useSelector((state) => state.records);
+  const { records } = useSelector((state: any) => state.records);
 
   const getRecords = () => {
     axios({
@@ -58,23 +60,31 @@ export default function Records() {
   };
 
   const deleteRecord = async () => {
-    console.log("222222222222222222");
-    await axios({
-      method: "put",
-      data: {
-        index: 0,
-      },
-      withCredentials: true,
-      url: "http://localhost:7000/records/deleteone",
-    })
-      .then((res) => {
-        if (res.status === 200) {
-          getRecords();
-        } else {
-          alert("Error hapened please try again.");
-        }
+    if (isDelFinished) {
+      setIsDelFinished(false);
+
+      await axios({
+        method: "put",
+        data: {
+          index: 0,
+        },
+        withCredentials: true,
+        url: "http://localhost:7000/records/deleteone",
       })
-      .catch((err) => console.log(err.message));
+        .then((res) => {
+          if (res.status === 200) {
+            getRecords();
+            setIsDelFinished(true);
+          } else {
+            alert("Error hapened please try again.");
+            setIsDelFinished(true);
+          }
+        })
+        .catch((err) => {
+          setIsDelFinished(true);
+          console.log(err.message);
+        });
+    }
   };
 
   useEffect(() => {
@@ -82,36 +92,56 @@ export default function Records() {
   }, []);
 
   return (
-    <section className="records-list flex-auto overflow-y-scroll">
-      {records
-        .map((record, index) => (
-          <div
-            className={` ${
-              record.type === "income"
-                ? "border-l-emerald-300"
-                : record.type === "expenses"
-                ? "border-l-red-300"
-                : record.type === "diaries"
-                ? "border-l-sky-300"
-                : "border-l-black"
-            } relative my-2 flex flex-col justify-between rounded-lg border border-l-8 border-slate-300 p-4 pr-7 text-slate-700 shadow-lg`}
-          >
-            <i
-              onClick={deleteRecord}
-              className="fa-solid fa-trash absolute top-2 right-2 cursor-pointer text-xs hover:text-red-500"
-            ></i>
-            <div className="flex flex-row justify-between">
-              <p>{record.money}</p>
-              <p>{record.date}</p>
+    <section className="flex flex-auto flex-col justify-between overflow-hidden bg-transparent">
+      <div id="records-list" className="overflow-y-scroll bg-transparent">
+        {records
+          .map((record: any) => (
+            <div
+              className={` ${
+                record.type === "income"
+                  ? "border-l-green-400"
+                  : record.type === "expenses"
+                  ? "border-l-red-400"
+                  : record.type === "diaries"
+                  ? "border-l-sky-400"
+                  : "border-l-black"
+              } relative my-2 flex flex-col justify-between rounded-lg border border-l-8 border-slate-300 p-4 pr-7 text-slate-700 shadow-lg`}
+            >
+              <i
+                onClick={() => {
+                  try {
+                    deleteRecord();
+                  } catch (error) {
+                    console.log(error);
+                  }
+                }}
+                className="fa-solid fa-trash absolute top-2 right-2 cursor-pointer text-xs transition hover:text-red-500 active:scale-90"
+              ></i>
+              <div className="flex flex-row justify-between">
+                <p>{record.money}</p>
+                <p>{record.date}</p>
+              </div>
+              <p>{record.description}</p>
             </div>
-            <p>{record.description}</p>
-          </div>
-        ))
-        .reverse()}
-
-      <div className="sticky bottom-0 flex flex-col gap-2 bg-white py-4">
+          ))
+          .reverse()}
+      </div>
+      <div className="flex flex-col gap-2 border-t border-t-slate-200 bg-transparent py-4">
         <div className="flex flex-row justify-between gap-2">
-          <select className=" appearance-none rounded-lg bg-red-300 p-1 text-center text-xs focus-visible:outline-none">
+          <select
+            onChange={(e) => {
+              setType(e.target.value);
+            }}
+            className={`${
+              type === "expenses"
+                ? "bg-red-400/50"
+                : type === "income"
+                ? "bg-green-400/50"
+                : type === "diaries"
+                ? "bg-sky-400/50"
+                : "bg-black"
+            } appearance-none rounded-lg p-1  text-center text-xs shadow focus-visible:outline-none sm:text-base`}
+          >
             <option value="expenses">expenses</option>
             <option value="income">income</option>
             <option value="diaries">diaries</option>
@@ -122,7 +152,7 @@ export default function Records() {
             onChange={(e) => {
               setMoney(+e.target.value);
             }}
-            className="min-w-0  rounded-lg border border-slate-300 p-1 text-xs focus-visible:outline-blue-500"
+            className="min-w-0  rounded-lg border border-slate-300 bg-white/30 p-1 text-xs shadow focus-visible:outline-blue-500 sm:text-base"
           />
           <input
             id="input-date"
@@ -130,8 +160,7 @@ export default function Records() {
             onChange={(e) => {
               setDate(e.target.value);
             }}
-            placeholder="date"
-            className="w-[105px] rounded-lg border border-slate-300 p-1 text-[8px] focus-visible:outline-blue-500"
+            className="w-[105px] rounded-lg border border-slate-300 bg-white/30 p-1 text-[8px] shadow focus-visible:outline-blue-500 sm:w-fit sm:text-base"
           />
         </div>
         <textarea
@@ -139,11 +168,11 @@ export default function Records() {
           onChange={(e) => {
             setDescription(e.target.value);
           }}
-          className="w-full rounded-lg border border-slate-300 p-2 focus-visible:outline-blue-500"
+          className="w-full rounded-lg border border-slate-300 bg-white/30 p-2 shadow focus-visible:outline-blue-500"
         ></textarea>
         <button
           onClick={addRecord}
-          className="w-full rounded-lg bg-gradient-to-r from-red-200 to-sky-200 py-2"
+          className="w-full rounded-lg bg-gradient-to-r from-red-200 to-sky-200 py-2 shadow-md transition active:scale-95"
         >
           Add
         </button>

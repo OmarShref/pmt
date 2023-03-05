@@ -1,0 +1,23 @@
+#home {
+  background: linear-gradient(rgb(147 197 253), rgb(254 202 202));
+  animation: gradient 6s linear infinite alternate;
+  height: 100vh;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 0%;
+  }
+  33% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 50% 50%;
+  }
+  66% {
+    background-position: 50% 50%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}

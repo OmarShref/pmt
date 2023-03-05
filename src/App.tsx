@@ -6,6 +6,7 @@ import ForgetPassword from "./components/ForgetPassword";
 import Home from "./components/Home";
 import Records from "./components/Records";
 import Checklists from "./components/Checklists";
+import NotFound from "./components/NotFound";
 
 function App() {
   return (
@@ -15,10 +16,12 @@ function App() {
         <Route path="login" element={<Login />}></Route>
         <Route path="register" element={<Register />}></Route>
         <Route path="forgetpassword" element={<ForgetPassword />}></Route>
+        <Route path="*" element={<NotFound />}></Route>
         <Route path="home" element={<Home />}>
           <Route index element={<Records />}></Route>
           <Route path="records" element={<Records />}></Route>
           <Route path="checklists" element={<Checklists />}></Route>
+          <Route path="*" element={<NotFound />}></Route>
         </Route>
       </Routes>
     </>
