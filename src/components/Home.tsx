@@ -1,4 +1,3 @@
-import "./Home.css";
 import { Outlet } from "react-router-dom";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -48,7 +47,10 @@ export default function Home() {
 
   return (
     <>
-      <section id="home" className="p-4">
+      <section
+        id="home"
+        className="h-screen bg-gradient-to-t from-blue-300 to-red-200 p-4"
+      >
         <div className="mx-auto flex h-full max-w-2xl flex-col justify-between rounded-xl bg-white/20 p-4 shadow-xl backdrop-blur">
           <div className="flex items-center justify-between pb-2">
             <button
