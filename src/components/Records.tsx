@@ -120,7 +120,7 @@ export default function Records() {
                 <p>{record.money}</p>
                 <p>{record.date}</p>
               </div>
-              <p>{record.description}</p>
+              <p className="whitespace-pre-line">{record.description}</p>
             </div>
           ))
           .reverse()}
