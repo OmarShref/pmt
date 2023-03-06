@@ -12,7 +12,7 @@ export default function Login() {
     await axios({
       method: "get",
       withCredentials: true,
-      url: "http://localhost:7000/user",
+      url: "https://pmtbackend.onrender.com/user",
     })
       .then((res) => {
         console.log("get user from login : ", res.status);
@@ -33,12 +33,12 @@ export default function Login() {
         password: loginPassword,
       },
       withCredentials: true,
-      url: "http://localhost:7000/login",
+      url: "https://pmtbackend.onrender.com/login",
     })
       .then((res) => {
         console.log("login : ", res.status);
         if (res.status === 204) {
-          alert("please, enter valid email & password");
+          alert("please, enter valid username & password");
         }
       })
       .catch((err) => console.log(err.message));
@@ -87,6 +87,12 @@ export default function Login() {
             className="mt-8 w-full cursor-pointer rounded-md bg-slate-700 py-2 text-center text-white transition active:scale-95 active:bg-slate-600"
           >
             LOG IN
+          </button>
+          <button
+            onClick={getUser}
+            className="mt-8 w-full cursor-pointer rounded-md bg-slate-700 py-2 text-center text-white transition active:scale-95 active:bg-slate-600"
+          >
+            get user
           </button>
           <Link
             to="/register"
