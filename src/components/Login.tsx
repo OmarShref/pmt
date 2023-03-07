@@ -12,7 +12,7 @@ export default function Login() {
     await axios({
       method: "get",
       withCredentials: true,
-      url: "https://pmtbackend.onrender.com/user",
+      url: "/user",
     })
       .then((res) => {
         console.log("get user from login : ", res.status);
@@ -33,7 +33,7 @@ export default function Login() {
         password: loginPassword,
       },
       withCredentials: true,
-      url: "https://pmtbackend.onrender.com/login",
+      url: "/login",
     })
       .then((res) => {
         console.log("login : ", res.status);

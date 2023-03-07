@@ -22,7 +22,7 @@ export default function Records() {
     axios({
       method: "get",
       withCredentials: true,
-      url: "https://pmtbackend.onrender.com/records/getall",
+      url: "/records/getall",
     })
       .then((res) => {
         if (res.status === 200) {
@@ -44,7 +44,7 @@ export default function Records() {
         description: description,
       },
       withCredentials: true,
-      url: "https://pmtbackend.onrender.com/records/putone",
+      url: "/records/putone",
     })
       .then((res) => {
         if (res.status === 201) {
@@ -68,7 +68,7 @@ export default function Records() {
           index: index,
         },
         withCredentials: true,
-        url: "https://pmtbackend.onrender.com/records/deleteone",
+        url: "/records/deleteone",
       })
         .then((res) => {
           if (res.status === 200) {

@@ -16,7 +16,7 @@ export default function Home() {
     await axios({
       method: "get",
       withCredentials: true,
-      url: "https://pmtbackend.onrender.com/user",
+      url: "/user",
     })
       .then((res) => {
         console.log("get user from home : ", res.status);
@@ -34,7 +34,7 @@ export default function Home() {
     await axios({
       method: "get",
       withCredentials: true,
-      url: "https://pmtbackend.onrender.com/logout",
+      url: "/logout",
     })
       .then((res) => console.log("logout : ", res.status))
       .catch((err) => console.log(err.message));

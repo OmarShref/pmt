@@ -17,7 +17,7 @@ export default function Register() {
         password: registerPassword,
       },
       withCredentials: true,
-      url: "https://pmtbackend.onrender.com/register",
+      url: "/register",
     })
       .then((res) => {
         console.log("register : ", res.status);
