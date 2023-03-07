@@ -88,12 +88,6 @@ export default function Login() {
           >
             LOG IN
           </button>
-          <button
-            onClick={getUser}
-            className="mt-8 w-full cursor-pointer rounded-md bg-slate-700 py-2 text-center text-white transition active:scale-95 active:bg-slate-600"
-          >
-            get user
-          </button>
           <Link
             to="/register"
             className="mt-4 w-full rounded-md border-[1px] border-slate-700 py-2 text-center text-slate-700  transition active:scale-95"
