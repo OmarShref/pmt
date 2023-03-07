@@ -41,6 +41,14 @@ export default function Home() {
     getUser();
   };
 
+  const setInfoVesibility = () => {
+    try {
+      // document.getElementById("user-info")?.style.visibility === "hidden"
+      //   ? (document.getElementById("user-info").style.visibility = "hidden")
+      //   : (document.getElementById("user-info").style.visibility = "hidden");
+    } catch (error) {}
+  };
+
   useEffect(() => {
     getUser();
   }, []);
@@ -62,12 +70,7 @@ export default function Home() {
             <img src={coinIcon} alt="coin icon" className="h-9 w-9" />
             <div
               onClick={() => {
-                document.getElementById("user-info").style.visibility ===
-                "hidden"
-                  ? (document.getElementById("user-info").style.visibility =
-                      "visible")
-                  : (document.getElementById("user-info").style.visibility =
-                      "hidden");
+                setInfoVesibility();
               }}
               className="relative z-10 grid h-10 w-10 cursor-pointer select-none place-items-center rounded-full bg-gradient-to-tr from-red-200 to-emerald-200 text-lg uppercase text-slate-700"
             >
