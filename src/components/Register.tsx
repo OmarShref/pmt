@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import coinIcon from "../assets/coin.png";
+import { BASE_URL } from "../server/server";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ export default function Register() {
         password: registerPassword,
       },
       withCredentials: true,
-      url: "/register",
+      url: BASE_URL + "/register",
     })
       .then((res) => {
         console.log("register : ", res.status);

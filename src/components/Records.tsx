@@ -94,7 +94,7 @@ export default function Records() {
   return (
     <section className="flex flex-auto flex-col justify-between overflow-hidden bg-transparent">
       <div className="overflow-y-scroll bg-transparent">
-        {/* {records
+        {records
           .map((record: any, index: number) => (
             <div
               className={` ${
@@ -124,7 +124,7 @@ export default function Records() {
               <p className="whitespace-pre-line">{record.description}</p>
             </div>
           ))
-          .reverse()} */}
+          .reverse()}
       </div>
       <div className="flex flex-col gap-2 border-t border-t-slate-200 bg-transparent py-4">
         <div className="flex flex-row justify-between gap-2">
