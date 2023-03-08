@@ -43,11 +43,11 @@ export default function Login() {
         }
       })
       .catch((err) => console.log(err.message));
-    getUser();
+    // getUser();
   };
 
   useEffect(() => {
-    getUser();
+    // getUser();
   }, []);
 
   return (
@@ -88,6 +88,12 @@ export default function Login() {
             className="mt-8 w-full cursor-pointer rounded-md bg-slate-700 py-2 text-center text-white transition active:scale-95 active:bg-slate-600"
           >
             LOG IN
+          </button>
+          <button
+            onClick={getUser}
+            className="mt-4 w-full cursor-pointer rounded-md bg-slate-700 py-2 text-center text-white transition active:scale-95 active:bg-slate-600"
+          >
+            GET USER
           </button>
           <Link
             to="/register"
