@@ -1,1 +1,1 @@
-export const BASE_URL = "https://pmtbackend.onrender.com";
+export const BASE_URL = "";
