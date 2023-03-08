@@ -87,7 +87,7 @@ export default function Records() {
   };
 
   useEffect(() => {
-    getRecords();
+    // getRecords();
   }, []);
 
   return (
