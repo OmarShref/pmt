@@ -50,7 +50,7 @@ export default function Home() {
   };
 
   useEffect(() => {
-    getUser();
+    // getUser();
   }, []);
 
   return (
