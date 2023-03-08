@@ -6,6 +6,7 @@ import { setUser } from "../redux/userReducer";
 import axios from "axios";
 import Nav from "./Nav";
 import coinIcon from "../assets/coin.png";
+import { BASE_URL } from "../server/server.js";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ export default function Home() {
     await axios({
       method: "get",
       withCredentials: true,
-      url: "/user",
+      url: BASE_URL + "/user",
     })
       .then((res) => {
         console.log("get user from home : ", res.status);
@@ -34,7 +35,7 @@ export default function Home() {
     await axios({
       method: "get",
       withCredentials: true,
-      url: "/logout",
+      url: BASE_URL + "/logout",
     })
       .then((res) => console.log("logout : ", res.status))
       .catch((err) => console.log(err.message));
@@ -50,7 +51,7 @@ export default function Home() {
   };
 
   useEffect(() => {
-    // getUser();
+    getUser();
   }, []);
 
   return (

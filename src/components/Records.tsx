@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setrecords } from "../redux/recordsReducer";
+import { BASE_URL } from "../server/server";
 
 export default function Records() {
   const [isDelFinished, setIsDelFinished] = useState(true);
@@ -22,7 +23,7 @@ export default function Records() {
     axios({
       method: "get",
       withCredentials: true,
-      url: "/records/getall",
+      url: BASE_URL + "/records/getall",
     })
       .then((res) => {
         if (res.status === 200) {
@@ -44,7 +45,7 @@ export default function Records() {
         description: description,
       },
       withCredentials: true,
-      url: "/records/putone",
+      url: BASE_URL + "/records/putone",
     })
       .then((res) => {
         if (res.status === 201) {
@@ -68,7 +69,7 @@ export default function Records() {
           index: index,
         },
         withCredentials: true,
-        url: "/records/deleteone",
+        url: BASE_URL + "/records/deleteone",
       })
         .then((res) => {
           if (res.status === 200) {
@@ -87,7 +88,7 @@ export default function Records() {
   };
 
   useEffect(() => {
-    // getRecords();
+    getRecords();
   }, []);
 
   return (

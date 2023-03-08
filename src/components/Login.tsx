@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import coinIcon from "../assets/coin.png";
+import { BASE_URL } from "../server/server";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ export default function Login() {
     await axios({
       method: "get",
       withCredentials: true,
-      url: "/user",
+      url: BASE_URL + "/user",
     })
       .then((res) => {
         console.log("get user from login : ", res.status);
@@ -33,7 +34,7 @@ export default function Login() {
         password: loginPassword,
       },
       withCredentials: true,
-      url: "/login",
+      url: BASE_URL + "/login",
     })
       .then((res) => {
         console.log("login : ", res.status);
